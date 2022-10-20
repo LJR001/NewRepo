@@ -12,12 +12,12 @@ namespace APIAgendaMongo.Controllers
     public class AdressController : ControllerBase
     {
         private readonly AdressServices _adressService;
-        private readonly ClientServices _clientService;
+       // private readonly ClientServices _clientService;
 
         public AdressController(AdressServices adressServices, ClientServices clientServices) 
         {
             _adressService = adressServices;
-            _clientService = clientServices;
+         //   _clientService = clientServices;
         } 
 
         [HttpGet]
@@ -29,9 +29,9 @@ namespace APIAgendaMongo.Controllers
             var adress = _adressService.Get(id);
             if (adress == null) return NotFound();
 
-            var client = _clientService.Get();
+         //   var client = _clientService.Get();
          
-            adress.Client = client.FirstOrDefault(x=>x.Adress.Id==id); 
+       //     adress.Client = client.FirstOrDefault(x=>x.Adress.Id==id); 
             
             return Ok(adress);
         }

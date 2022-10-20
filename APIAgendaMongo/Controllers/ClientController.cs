@@ -3,6 +3,7 @@ using APIAgendaMongo.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace APIAgendaMongo.Controllers
 {
@@ -23,11 +24,23 @@ namespace APIAgendaMongo.Controllers
         public ActionResult<List<Client>> Get() => _clientService.Get();
 
 
-        [HttpGet("{Id:length(24)}", Name = "GetClient")]
+        [HttpGet("Client{id:length(24)}", Name = "GetClient")]
         public ActionResult<Client> Get(string id)
         {
             var client = _clientService.Get(id);
             if (client == null) return NotFound();
+            return Ok(client);
+        }
+             
+
+        [HttpGet("ClientName{Name:length(30)}",Name ="GetClientName")]
+        public ActionResult<Client> GetClientName(string name)
+        {
+            var client = _clientService.Get().FirstOrDefault(x => x.Name == name);
+            if (client == null)
+            {
+                return NotFound();
+            }
             return Ok(client);
         }
 
